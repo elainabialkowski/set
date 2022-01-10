@@ -49,6 +49,16 @@ func Benchmark_Difference(t *testing.B) {
 	}
 }
 
+func Benchmark_Symmetric_Difference(t *testing.B) {
+	for k, v := range BenchmarkInputs {
+		t.Run(fmt.Sprintf("input_size_%d", k), func(t *testing.B) {
+			for i := 0; i < t.N; i++ {
+				v.a.SymmetricDifference(v.b)
+			}
+		})
+	}
+}
+
 func Test_Intersection(t *testing.T) {
 	var a set.Set[int] = set.New([]int{1, 9, 6, 4, 5})
 	var b set.Set[int] = set.New([]int{1, 4, 5})
