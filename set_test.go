@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ElainaBialkowski/set"
+	"github.com/elainabialkowski/set"
 )
 
 var BenchmarkInputs = map[int]struct {
