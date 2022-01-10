@@ -148,6 +148,17 @@ func Test_Fold(t *testing.T) {
 	}
 }
 
+func Test_Filter(t *testing.T) {
+	var a set.Set[int] = set.New([]int{1, 2, 3, 4, 5})
+	var b set.Set[int] = set.New([]int{2, 4})
+
+	if !a.Filter(func(x int) bool {
+		return x%2 == 0
+	}).Equal(b) {
+		t.Fail()
+	}
+}
+
 func Test_Contains(t *testing.T) {
 	var a set.Set[int] = set.New([]int{1, 2, 3, 4, 5})
 
