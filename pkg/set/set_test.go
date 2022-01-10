@@ -75,16 +75,35 @@ func Test_Difference(t *testing.T) {
 	var b set.Set[int] = set.New([]int{1, 4, 5})
 	var expected set.Set[int] = set.New([]int{9, 6})
 
-	if !a.Intersection(b).Equal(expected) {
+	if !a.Difference(b).Equal(expected) {
 		t.Fail()
 	}
 }
 
-func Test_Subset(t *testing.T) {
+func Test_Symmetric_Difference(t *testing.T) {
+	var a set.Set[int] = set.New([]int{1, 9, 6, 4, 5})
+	var b set.Set[int] = set.New([]int{1, 4, 5, 17, 15})
+	var expected set.Set[int] = set.New([]int{9, 6, 17, 15})
+
+	if !a.SymmetricDifference(b).Equal(expected) {
+		t.Fail()
+	}
+}
+
+func Test_Subset_True(t *testing.T) {
 	var a set.Set[int] = set.New([]int{1, 9, 6, 4, 5})
 	var b set.Set[int] = set.New([]int{1, 4, 5})
 
 	if !b.Subset(a) {
+		t.Fail()
+	}
+}
+
+func Test_Subset_False(t *testing.T) {
+	var a set.Set[int] = set.New([]int{1, 9, 6, 4, 5})
+	var b set.Set[int] = set.New([]int{1, 4, 5, 2})
+
+	if b.Subset(a) {
 		t.Fail()
 	}
 }

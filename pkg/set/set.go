@@ -5,8 +5,10 @@ import (
 	"strings"
 )
 
+// Type Set[T] is a generic mathematical set data type.
 type Set[T comparable] map[T]bool
 
+// New creates a new set from an initial slice
 func New[T comparable](initial []T) Set[T] {
 	var set Set[T] = make(Set[T])
 	for _, v := range initial {
@@ -15,6 +17,7 @@ func New[T comparable](initial []T) Set[T] {
 	return set
 }
 
+// String returns a pretty looking string representation of the set.
 func (a Set[T]) String() string {
 	builder := strings.Builder{}
 	var first T
@@ -35,14 +38,7 @@ func (a Set[T]) String() string {
 	return builder.String()
 }
 
-func (a Set[T]) Sliceify() []T {
-	var result []T = make([]T, 0)
-	for valueA := range a {
-		result = append(result, valueA)
-	}
-	return result
-}
-
+// Intersection performs set intersection on two sets.
 func (a Set[T]) Intersection(b Set[T]) Set[T] {
 	var intersected Set[T] = make(Set[T])
 	for valueB := range b {
@@ -53,6 +49,7 @@ func (a Set[T]) Intersection(b Set[T]) Set[T] {
 	return intersected
 }
 
+// Union performs set union on two sets.
 func (a Set[T]) Union(b Set[T]) Set[T] {
 	var unioned Set[T] = make(Set[T])
 
@@ -67,6 +64,7 @@ func (a Set[T]) Union(b Set[T]) Set[T] {
 	return unioned
 }
 
+// Difference performs set difference on two sets.
 func (a Set[T]) Difference(b Set[T]) Set[T] {
 	var intersected Set[T] = a.Intersection(b)
 	var difference Set[T] = make(Set[T])
@@ -80,6 +78,7 @@ func (a Set[T]) Difference(b Set[T]) Set[T] {
 	return difference
 }
 
+// SymmetricDifference performs symmetric set difference on two sets.
 func (a Set[T]) SymmetricDifference(b Set[T]) Set[T] {
 	var intersected Set[T] = a.Intersection(b)
 	var difference Set[T] = make(Set[T])
@@ -99,8 +98,9 @@ func (a Set[T]) SymmetricDifference(b Set[T]) Set[T] {
 	return difference
 }
 
+// Subset returns true if a is a subset of b, and false otherwise.
 func (a Set[T]) Subset(b Set[T]) bool {
-	for valueA := range b {
+	for valueA := range a {
 		if !b[valueA] {
 			return false
 		}
@@ -108,6 +108,7 @@ func (a Set[T]) Subset(b Set[T]) bool {
 	return true
 }
 
+// Equal returns true if two sets are equal, false otherwise.
 func (a Set[T]) Equal(b Set[T]) bool {
 	return a.Subset(b) && b.Subset(a)
 }
