@@ -108,6 +108,26 @@ func (a Set[T]) Subset(b Set[T]) bool {
 	return true
 }
 
+func (a Set[T]) Map(function func(T) T) Set[T] {
+	var mapped Set[T] = make(Set[T])
+	for valueA := range a {
+		mapped[function(valueA)] = true
+	}
+	return mapped
+}
+
+func (a Set[T]) Fold(function func(T, T) T) T {
+	var accumulator T
+	for valueA := range a {
+		accumulator = function(accumulator, valueA)
+	}
+	return accumulator
+}
+
+func (a Set[T]) Contains(value T) bool {
+	return a[value]
+}
+
 // Equal returns true if two sets are equal, false otherwise.
 func (a Set[T]) Equal(b Set[T]) bool {
 	return a.Subset(b) && b.Subset(a)

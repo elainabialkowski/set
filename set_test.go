@@ -127,6 +127,35 @@ func Test_Equal(t *testing.T) {
 	}
 }
 
+func Test_Map(t *testing.T) {
+	var a set.Set[int] = set.New([]int{1, 2, 3, 4, 5})
+	var b set.Set[int] = set.New([]int{2, 4, 6, 8, 10})
+
+	if !a.Map(func(x int) int {
+		return x * 2
+	}).Equal(b) {
+		t.Fail()
+	}
+}
+
+func Test_Fold(t *testing.T) {
+	var a set.Set[int] = set.New([]int{1, 2, 3, 4, 5})
+
+	if a.Fold(func(x, y int) int {
+		return x + y
+	}) != 15 {
+		t.Fail()
+	}
+}
+
+func Test_Contains(t *testing.T) {
+	var a set.Set[int] = set.New([]int{1, 2, 3, 4, 5})
+
+	if !a.Contains(2) {
+		t.Fail()
+	}
+}
+
 func RandomIntegers(elements int) []int {
 	rand.Seed(time.Now().UnixNano())
 	var result []int = make([]int, 0)
