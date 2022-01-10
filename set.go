@@ -124,6 +124,16 @@ func (a Set[T]) Fold(function func(T, T) T) T {
 	return accumulator
 }
 
+func (a Set[T]) Filter(function func(T) bool) Set[T] {
+	var filtered Set[T] = make(Set[T])
+	for valueA := range a {
+		if function(valueA) {
+			filtered[valueA] = true
+		}
+	}
+	return filtered
+}
+
 func (a Set[T]) Contains(value T) bool {
 	return a[value]
 }
